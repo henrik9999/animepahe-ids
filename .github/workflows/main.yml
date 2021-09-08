@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
       with:
-        ref: master
+        ref: main
     - uses: actions/setup-node@v1
       with:
         node-version: '14.x'
@@ -28,4 +28,4 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: 'master'
+        branch: 'main'
