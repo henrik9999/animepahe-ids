@@ -20,10 +20,12 @@ jobs:
       run: yarn start
     - name: Commit files
       run: |
+        set +e
         git add data.json
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "new data" -a
+        set -e
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
