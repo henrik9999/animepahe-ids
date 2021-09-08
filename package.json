@@ -1,0 +1,17 @@
+{
+  "name": "animepahe-ids",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:henrik9999/animepahe-ids.git",
+  "author": "henrik9999",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "node-fetch": "^3.0.0"
+  },
+  "type": "module"
+}
