@@ -30,8 +30,7 @@ async function start(){
             continue;
         }
 
-        let title = $('.title-wrapper i').first().attr('title').replace('Bookmark', '').trim();
-        if (!title) title = $('.title-wrapper h1').contents().get(0).nodeValue;
+        let title = $('a[href^="//pahe.win/a/"]').attr('title');
         currentData[id] = {title}
     }
 
