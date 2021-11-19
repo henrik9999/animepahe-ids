@@ -13,7 +13,13 @@ async function start() {
 
 	const $ = await request('https://animepahe.com/anime');
 
-	const animes = $('a[href^=/anime/]').map((i, element) => {
+	const elements = $('a[href^=/anime/]');
+
+	if(!elements.length) {
+		throw new Error("couldnt find anime");
+	}
+
+	const animes = elements.map((i, element) => {
 		if (!currentTitles.has($(element).attr('title').trim())) {
 			return $(element).attr('href');
 		}
@@ -29,7 +35,7 @@ async function start() {
 		if (pahe) {
 			id = pahe.split('/')[4];
 		} else {
-			continue;
+			throw new Error('couldnt find id');
 		}
 
 		const title = $('a[href^="//pahe.win/a/"]').attr('title');
