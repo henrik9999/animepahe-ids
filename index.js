@@ -26,11 +26,11 @@ async function start() {
 	const elements = $('a[href^=/anime/]');
 
 	if(!elements.length) {
-		throw new Error("couldnt find anime");
+		throw new Exception("couldnt find anime");
 	}
 
 	const animes = elements.map((i, element) => {
-		if (!currentTitles.has($(element).attr('title').trim())) {
+		if (!currentTitles.has($(element).text().trim())) {
 			return $(element).attr('href');
 		}
 		return undefined;
@@ -38,23 +38,24 @@ async function start() {
 
 	for (const anime of animes) {
 		console.log(anime);
-		await wait(Math.floor(Math.random() * 2000) + 1);
+		await wait(Math.floor(Math.random() * 2000) + 100);
 		await page.goto('https://animepahe.com' + anime, {
 			waitUntil: 'networkidle2',
 		});
-		await page.waitForSelector('#modalBookmark a',{timeout:10000}); 
+		await page.waitForSelector('meta[name=id]',{timeout:10000}); 
 		bodyHTML = await page.evaluate(() => document.documentElement.outerHTML);
 		$ = cheerio.load(bodyHTML);
 
-		let id;
-		const pahe = $('a[href^="//pahe.win/a/"]').attr('href');
-		if (pahe) {
-			id = pahe.split('/')[4];
-		} else {
-			throw new Error('couldnt find id');
+		const id = $('meta[name=id]').attr('content');
+		if (!id) {
+			throw new Exception('couldnt find id');
 		}
 
-		const title = $('a[href^="//pahe.win/a/"]').attr('title');
+		const title = $('header.anime-header > div.title-wrapper > h1').text().trim()
+		if (!title) {
+			throw new Exception('couldnt get title');
+		}
+		console.log(id, title);
 		currentData[id] = {title};
 	}
 	await browser.close();
