@@ -51,12 +51,18 @@ async function start() {
 			throw new Exception('couldnt find id');
 		}
 
+		const malId = $('meta[name=myanimelist]').attr('content');
+		const anilistId = $('meta[name=anilist]').attr('content');
+		const kitsuId = $('meta[name=kitsu]').attr('content');
+		const anidbId = $('meta[name=anidb]').attr('content');
+		const annId = $('meta[name=ann]').attr('content');
+
 		const title = $('header.anime-header > div.title-wrapper > h1').text().trim()
 		if (!title) {
 			throw new Exception('couldnt get title');
 		}
 		console.log(id, title);
-		currentData[id] = {title};
+		currentData[id] = {title, malId, anilistId, kitsuId, anidbId, annId};
 	}
 	await browser.close();
 	console.log(Object.keys(currentData).length);
