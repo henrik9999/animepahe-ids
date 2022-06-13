@@ -57,7 +57,7 @@ async function start() {
 		const anidbId = $('meta[name=anidb]').attr('content');
 		const annId = $('meta[name=ann]').attr('content');
 
-		const title = $('header.anime-header > div.title-wrapper > h1').text().trim()
+		const title = $('header.anime-header > div.title-wrapper > h1 > span').text().trim()
 		if (!title) {
 			throw new Exception('couldnt get title');
 		}
