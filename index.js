@@ -12,9 +12,11 @@ async function start() {
 	const browser = await puppeteer.launch({headless: true});
 	const page = await browser.newPage();
 
-	const currentData = JSON.parse(
-		fs.readFileSync(path.resolve('data.json'), {encoding: 'utf8'}),
-	);
+	const currentData = !process.argv.includes("--all")
+    ? JSON.parse(
+        fs.readFileSync(path.resolve("data.json"), { encoding: "utf8" })
+      )
+    : {};
 	const currentTitles = new Set(Object.values(currentData).map(i => i.title));
 	
 	await page.goto('https://animepahe.com/anime', {

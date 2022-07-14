@@ -1,8 +1,8 @@
 on:
   schedule:
-    - cron:  '0 */6 * * *'
+    - cron:  '0 1 1 * *'
   workflow_dispatch:
-name: Main
+name: All
 jobs:
   main:
     name: Main
@@ -17,14 +17,14 @@ jobs:
     - name: Build
       run: npm install
     - name: Main
-      run: npm run start
+      run: npm run all
     - name: Commit files
       run: |
         set +e
         git add data.json
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "new data" -a
+        git commit -m "all data" -a
         set -e
     - name: Push changes
       uses: ad-m/github-push-action@master

@@ -1,0 +1,33 @@
+on:
+  schedule:
+    - cron:  '0 */6 * * *'
+  workflow_dispatch:
+name: New
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref: main
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+    - name: Build
+      run: npm install
+    - name: Main
+      run: npm run new
+    - name: Commit files
+      run: |
+        set +e
+        git add data.json
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "new data" -a
+        set -e
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: 'main'
