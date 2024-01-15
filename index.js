@@ -22,7 +22,7 @@ async function start() {
 	await page.goto('https://animepahe.com/anime', {
 		waitUntil: 'networkidle2',
 	});
-	await page.waitForSelector('div.show a[title]',{timeout: 30000}); 
+	await page.waitForSelector('div.index-wrapper a[title]',{timeout: 30000}); 
 	let bodyHTML = await page.evaluate(() => document.documentElement.outerHTML);
 	let $ = cheerio.load(bodyHTML);
 	const elements = $('a[href^=/anime/]');
