@@ -31,6 +31,8 @@ async function start() {
 		throw new Exception("couldnt find anime");
 	}
 
+	console.log("elements found: " + elements.length);
+
 	const animes = elements.map((i, element) => {
 		if (!currentTitles.has($(element).text().trim())) {
 			return $(element).attr('href');
@@ -67,7 +69,7 @@ async function start() {
 		currentData[id] = {title, malId, anilistId, kitsuId, anidbId, annId};
 	}
 	await browser.close();
-	console.log(Object.keys(currentData).length);
+	console.log("total: " + Object.keys(currentData).length);
 	fs.writeFileSync(path.resolve('data.json'), JSON.stringify(currentData), {
 		encoding: 'utf8',
 	});
