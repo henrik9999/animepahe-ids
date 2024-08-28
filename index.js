@@ -8,15 +8,20 @@ import pluginAdblocker from 'puppeteer-extra-plugin-adblocker'
 puppeteer.use(pluginStealth());
 puppeteer.use(pluginAdblocker());
 
-async function start() {
+async function start(data) {
 	const browser = await puppeteer.launch({headless: true});
 	const page = await browser.newPage();
 
-	const currentData = !process.argv.includes("--all")
-    ? JSON.parse(
-        fs.readFileSync(path.resolve("data.json"), { encoding: "utf8" })
-      )
-    : {};
+	let currentData = !process.argv.includes("--all")
+	? JSON.parse(
+		fs.readFileSync(path.resolve("data.json"), { encoding: "utf8" })
+	  )
+	: {};
+
+	if(data) {
+		currentData = data;
+	}
+
 	const currentTitles = new Set(Object.values(currentData).map(i => i.title));
 	
 	await page.goto('https://animepahe.com/anime', {
@@ -34,6 +39,8 @@ async function start() {
 
 	console.log("elements found: " + elements.length);
 
+	const timestamp = Date.now();
+
 	const animes = elements.map((i, element) => {
 		if (!currentTitles.has($(element).text().trim())) {
 			return $(element).attr('href');
@@ -41,7 +48,13 @@ async function start() {
 		return undefined;
 	}).get();
 
+	console.log("todo: " + animes.length);
+
 	for (const anime of animes) {
+		if((Date.now() - timestamp) > (1000*60*60*2)) {
+			await browser.close();
+			return start(currentData)
+		}
 		console.log(anime);
 		await wait(Math.floor(Math.random() * 2000) + 100);
 		await page.goto('https://animepahe.com' + anime, {
@@ -82,4 +95,4 @@ function wait(ms) {
 	});
 }
 
-start();
+start(null);
