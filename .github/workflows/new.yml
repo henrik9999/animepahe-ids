@@ -14,6 +14,9 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: '16.x'
+
+    - name: Set env
+      run: echo "PUPPETEER_DOWNLOAD_PATH=$HOME/.npm/chromium" >> $GITHUB_ENV
         
     - name: Get npm cache directory
       id: npm-cache-dir
