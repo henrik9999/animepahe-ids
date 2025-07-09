@@ -1,12 +1,7 @@
 import path from 'node:path';
 import fs from 'node:fs';
-import cheerio from 'cheerio';
-import puppeteer from 'puppeteer-extra';
-import pluginStealth from 'puppeteer-extra-plugin-stealth';
-import pluginAdblocker from 'puppeteer-extra-plugin-adblocker'
-
-puppeteer.use(pluginStealth());
-puppeteer.use(pluginAdblocker());
+import * as cheerio from 'cheerio';
+import puppeteer from 'rebrowser-puppeteer';
 
 async function start(data) {
 	const browser = await puppeteer.launch({headless: true});
@@ -27,6 +22,7 @@ async function start(data) {
 	await page.goto('https://animepahe.com/anime', {
 		waitUntil: 'networkidle2',
 	});
+	await wait(10000);
 	await page.waitForSelector('div.index-wrapper a[title]',{timeout: 30000});
 	await wait(1000);
 	let bodyHTML = await page.evaluate(() => document.documentElement.outerHTML);

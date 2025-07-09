@@ -13,7 +13,7 @@ jobs:
         ref: main
     - uses: actions/setup-node@v4
       with:
-        node-version: '16.x'
+        node-version: '22.x'
 
     # see https://github.com/puppeteer/puppeteer/issues/12818
     - name: Disable AppArmor
@@ -36,7 +36,9 @@ jobs:
           ${{ runner.os }}-node-
           
     - name: Build
-      run: npm install
+      run: |
+        npm install
+        npx rebrowser-puppeteer browsers install chrome
     - name: Main
       run: npm run new
     - name: Commit files
