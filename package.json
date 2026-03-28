@@ -11,7 +11,7 @@
     "all": "node index.js --all"
   },
   "dependencies": {
-    "cheerio": "^1.1.2",
+    "cheerio": "^1.2.0",
     "rebrowser-puppeteer": "^24.8.1"
   },
   "type": "module"
