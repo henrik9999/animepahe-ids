@@ -20,7 +20,7 @@ jobs:
       run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
 
     - name: Set env
-      run: echo "PUPPETEER_DOWNLOAD_PATH=$HOME/.npm/chromium" >> $GITHUB_ENV
+      run: echo "CLOAKBROWSER_CACHE_DIR=$HOME/.npm/cloakbrowser" >> $GITHUB_ENV
         
     - name: Get npm cache directory
       id: npm-cache-dir
@@ -38,7 +38,6 @@ jobs:
     - name: Build
       run: |
         npm install
-        npx rebrowser-puppeteer browsers install chrome
     - name: Main
       run: npm run new
     - name: Commit files

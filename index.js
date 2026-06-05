@@ -1,10 +1,10 @@
 import path from 'node:path';
 import fs from 'node:fs';
 import * as cheerio from 'cheerio';
-import puppeteer from 'rebrowser-puppeteer';
+import { launch } from 'cloakbrowser/puppeteer';
 
 async function start(data) {
-	const browser = await puppeteer.launch({headless: true});
+	const browser = await launch({headless: true, humanize: true});
 	const page = await browser.newPage();
 
 	let currentData = !process.argv.includes("--all")
