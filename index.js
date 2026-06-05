@@ -19,7 +19,7 @@ async function start(data) {
 
 	const currentTitles = new Set(Object.values(currentData).map(i => i.title));
 	
-	await page.goto('https://animepahe.com/anime', {
+	await page.goto('https://animepahe.pw/anime', {
 		waitUntil: 'networkidle2',
 	});
 	await wait(10000);
@@ -53,7 +53,7 @@ async function start(data) {
 		}
 		console.log(anime);
 		await wait(Math.floor(Math.random() * 2000) + 100);
-		await page.goto('https://animepahe.com' + anime, {
+		await page.goto('https://animepahe.pw' + anime, {
 			waitUntil: 'networkidle2',
 		});
 		await page.waitForSelector('meta[name=id]',{timeout:10000}); 
