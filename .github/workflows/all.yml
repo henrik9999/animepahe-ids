@@ -16,8 +16,8 @@ jobs:
         node-version: '22.x'
 
     # see https://github.com/puppeteer/puppeteer/issues/12818
-    - name: Disable AppArmor
-      run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+    #- name: Disable AppArmor
+    #  run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
 
     - name: Set env
       run: echo "CLOAKBROWSER_CACHE_DIR=$HOME/.npm/cloakbrowser" >> $GITHUB_ENV
