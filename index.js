@@ -4,7 +4,7 @@ import * as cheerio from 'cheerio';
 import { launch } from 'cloakbrowser/puppeteer';
 
 async function start(data) {
-	const browser = await launch({headless: true, humanize: true});
+	const browser = await launch({headless: false, humanize: true});
 	const page = await browser.newPage();
 
 	let currentData = !process.argv.includes("--all")
@@ -23,7 +23,25 @@ async function start(data) {
 		waitUntil: 'networkidle2',
 	});
 	await wait(10000);
-	await page.waitForSelector('div.index-wrapper a[title]',{timeout: 30000});
+	try {
+		await page.waitForSelector('div.index-wrapper a[title]', {
+			timeout: 30000
+		});
+	} catch (err) {
+		const title = await page.title();
+		if(title==='Just a moment...') {
+			await page.keyboard.press('Tab');
+			await wait(1000);
+			await page.keyboard.press('Space');
+
+			await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
+			await page.waitForSelector('div.index-wrapper a[title]', {
+				timeout: 30000
+			});
+		} else {
+			throw err;
+		}
+	}
 	await wait(1000);
 	let bodyHTML = await page.evaluate(() => document.documentElement.outerHTML);
 	let $ = cheerio.load(bodyHTML);
