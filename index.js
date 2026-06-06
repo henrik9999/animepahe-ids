@@ -30,6 +30,7 @@ async function start(data) {
 	} catch (err) {
 		const title = await page.title();
 		if(title==='Just a moment...') {
+			console.log("cloudflare");
 			await page.keyboard.press('Tab');
 			await wait(1000);
 			await page.keyboard.press('Space');
