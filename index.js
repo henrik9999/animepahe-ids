@@ -84,7 +84,7 @@ async function start(data) {
 			throw new Exception('couldnt find id');
 		}
 
-		const malId = $('meta[name=myanimelist]').attr('content');
+		const malId = $('meta[name="mal"], meta[name="myanimelist"]').first().attr('content');
 		const anilistId = $('meta[name=anilist]').attr('content');
 		const kitsuId = $('meta[name=kitsu]').attr('content');
 		const anidbId = $('meta[name=anidb]').attr('content');
