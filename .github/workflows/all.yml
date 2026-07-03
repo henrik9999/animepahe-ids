@@ -8,10 +8,10 @@ jobs:
     name: Main
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v7
       with:
         ref: main
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v6
       with:
         node-version: '24.x'
 
@@ -27,7 +27,7 @@ jobs:
       shell: bash
       run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
 
-    - uses: actions/cache@v4
+    - uses: actions/cache@v6
       id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
       with:
         path: ${{ steps.npm-cache-dir.outputs.dir }}
