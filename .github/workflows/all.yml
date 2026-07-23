@@ -7,6 +7,8 @@ jobs:
   main:
     name: Main
     runs-on: self-hosted
+    env:
+      CLOAKBROWSER_LICENSE_KEY: ${{ secrets.CLOAKBROWSER_LICENSE_KEY }}
     steps:
     - uses: actions/checkout@v7
       with:
