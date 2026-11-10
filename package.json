@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "cheerio": "^1.1.2",
-    "cloakbrowser": "^0.7.0",
+    "cloakbrowser": "^0.7.2",
     "puppeteer-core": "^25.16.0"
   },
   "type": "module"
